@@ -1,4 +1,4 @@
-# Node.js/Express Boilerplate for GCP
+# Node.js/Express Boilerplate for GCP 👨‍💻
 
 ## Setup
 1. `npm install`
