@@ -1,5 +1,5 @@
 import chai, {expect } from 'chai';
-import app from '../app';
+import app from '../../src/app';
 
 describe('App', () => {
     let req = {};
@@ -14,6 +14,6 @@ describe('App', () => {
         .get('/')
         .end((_err, res) => {
             expect(res).to.have.status(200);
-        })
+        });
     });
 });

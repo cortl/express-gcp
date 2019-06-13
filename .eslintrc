@@ -1,0 +1,49 @@
+{
+    "env": {
+        "node": true,
+        "es6": true,
+        "mocha": true
+    },
+    "extends": "eslint:recommended",
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "rules": {
+        "array-bracket-newline": [
+            "error",
+            {
+                "multiline": true
+            }
+        ],
+        "array-bracket-spacing": [
+            "error",
+            "never"
+        ],
+        "camelcase": [
+            "error",
+            {
+                "properties": "always"
+            }
+        ],
+        "eqeqeq": "error",
+        "no-console": "off",
+        "no-extra-bind": "error",
+        "no-extra-parens": [
+            "error",
+            "all",
+            {
+                "ignoreJSX": "all"
+            }
+        ],
+        "prefer-const": "error",
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
+}
