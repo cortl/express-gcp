@@ -21,12 +21,6 @@
     "config": "3.1.0"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "mocha": "^6.1.4",
-    "nodemon": "^1.19.0",
-    "rimraf": "2.6.3",
-    "sinon-chai": "^3.3.0",
     "@babel/cli": "7.2.3",
     "@babel/core": "7.2.2",
     "@babel/node": "7.2.2",
@@ -35,7 +29,13 @@
     "@babel/preset-env": "7.3.1",
     "@babel/register": "7.0.0",
     "@babel/runtime": "7.3.4",
-    "nyc": "13.3.0",
-    "eslint": "5.16.0"
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "eslint": "5.16.0",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.19.0",
+    "nyc": "^14.1.1",
+    "rimraf": "2.6.3",
+    "sinon-chai": "^3.3.0"
   }
 }
