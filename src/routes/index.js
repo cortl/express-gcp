@@ -1,10 +1,9 @@
 import express from 'express';
 
-const router = express.Router();
-
-/* GET home page. */
-router.get('/', (_req, res) => {
-  res.send('Hello World!');
-});
+const router = () => {
+  const router = express.Router();
+  router.get('/', (_req, res) => res.send('Hello World!'));
+  return router;
+};
 
 export default router;

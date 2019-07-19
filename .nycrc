@@ -1,5 +1,7 @@
 {
   "all": true,
+  "sourceMap": false,
+  "instrument": false,
   "include": [
     "src"
   ],
