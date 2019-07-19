@@ -19,6 +19,24 @@ Google Cloud Platform project setup and the [Google Quickstart "Before You Begin
 1. `npm run dev`
 3. Develop! 🎉
 
+### Testing
+We prefer to use [Mocha] combined with [Sinon] and [Chance] to unit test our applications.  You can auto-run the tests using a tool called [Nodemon] which will auto-run the tests.  Some helpful commands to use when you want to run a specfic set of tests are
+
+`nodemon --watch test --exec "Describe Block"`
+
+for this sample project you could use
+`nodemon --watch test --exec "Index Router"`
+which would run all the tests under
+```
+describe('Index Router', () => {
+    it('should run this test', () => {});
+
+    describe('GET /', () => {
+        it('should also run this test', () => {});
+    });
+});
+```
+
 ### Deploying
 1. `gcloud app deploy`
 2. `gcloud app browse`
