@@ -12,6 +12,6 @@ app.use(cookieParser());
 
 app.use('/', indexRouter());
 
-logger().info(`application started successfully on port: ${config.get('port')}`);
+logger().info(`application started successfully on port: ${process.env.PORT || config.get('port')}`);
 
 export default app;
