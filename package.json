@@ -14,11 +14,11 @@
     "coverage": "nyc npm test && nyc report"
   },
   "dependencies": {
+    "bunyan": "^1.8.12",
+    "config": "3.2.1",
     "cookie-parser": "~1.4.4",
     "debug": "~4.1.1",
-    "express": "~4.17.1",
-    "morgan": "~1.9.1",
-    "config": "3.2.1"
+    "express": "~4.17.1"
   },
   "devDependencies": {
     "@babel/cli": "7.2.3",
