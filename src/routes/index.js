@@ -1,5 +1,4 @@
 import express from 'express';
-import { logger } from '../logger';
 
 const router = () => {
   const router = express.Router();
