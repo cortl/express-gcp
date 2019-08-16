@@ -14,6 +14,7 @@
     "coverage": "nyc npm test && nyc report"
   },
   "dependencies": {
+    "@google-cloud/logging-bunyan": "^1.2.2",
     "bunyan": "^1.8.12",
     "config": "3.2.1",
     "cookie-parser": "~1.4.4",
