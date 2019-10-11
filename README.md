@@ -45,3 +45,8 @@ Examples for querying JSON based logs can be found [here](https://cloud.google.c
 ### Deploying
 1. `gcloud app deploy`
 2. `gcloud app browse`
+
+#### Circle CI
+
+Create a service account that you'll use to deploy the application with after it has been built.  It will need the GAE Deploy role.  After you've downloaded the credentials, copy the entire contents into an environment variable called `GCLOUD_SERVICE_KEY` under the url
+https://circleci.com/gh/<your username>/<your repo>/edit#env-vars.  Be sure to add the `GOOGLE_PROJECT_ID` (which can be found in the dropdown of your Google Cloud Console).  Last thing you need to add is the location you would deploy to, `GOOGLE_COMPUTE_ZONE`, your zone can be found under [here](https://cloud.google.com/compute/docs/regions-zones/)
