@@ -42,8 +42,6 @@ describe('Index Router', () => {
 Logs for this application can be found in your [GAE log page](https://console.cloud.google.com/logs/viewer)
 Examples for querying JSON based logs can be found [here](https://cloud.google.com/logging/docs/view/advanced-queries)
 
-Logging can be done by importing the logger from the root of the `src` directory and can be called by using the [node-bunyan log method api](https://github.com/trentm/node-bunyan#log-method-api)
-
 ### Deploying
 1. `gcloud app deploy`
 2. `gcloud app browse`
