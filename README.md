@@ -57,6 +57,6 @@ Create a service account that you'll use to deploy the application with after it
 - Storage Admin
 
 After you've downloaded the credentials, copy the entire contents into an environment variable called `GCLOUD_SERVICE_KEY` under the url
-https://circleci.com/gh/<your username>/<your repo>/edit#env-vars.  Be sure to add the `GOOGLE_PROJECT_ID` (which can be found in the dropdown of your Google Cloud Console).  Last thing you need to add is the location you would deploy to, `GOOGLE_COMPUTE_ZONE`, your zone can be found under [here](https://cloud.google.com/compute/docs/regions-zones/)
+`https://circleci.com/gh/<your username>/<your repo>/edit#env-vars`.  Be sure to add the `GOOGLE_PROJECT_ID` (which can be found in the dropdown of your Google Cloud Console).  Last thing you need to add is the location you would deploy to, `GOOGLE_COMPUTE_ZONE`, your zone can be found under [here](https://cloud.google.com/compute/docs/regions-zones/)
 
 The first build in Circle will fail and it will tell you to enable the App Engine Admin API, do that and re-run
