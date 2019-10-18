@@ -17,7 +17,6 @@
     "@google-cloud/logging": "^5.5.2",
     "config": "3.2.1",
     "cookie-parser": "~1.4.4",
-    "debug": "~4.1.1",
     "express": "~4.17.1"
   },
   "devDependencies": {
