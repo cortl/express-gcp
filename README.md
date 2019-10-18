@@ -13,6 +13,8 @@ Boilerplate application for Node/Express on Google Cloud App Engine
 ### Prerequisites
 Google Cloud Platform project setup and the [Google Quickstart "Before You Begin"](https://cloud.google.com/appengine/docs/standard/nodejs/quickstart#before-you-begin) steps followed.
 
+You'll also need to change the `PROJECT_ID` in `/config/default.js` to your Google project id.
+
 ### Installing
 1. `npm install`
 
@@ -40,8 +42,7 @@ describe('Index Router', () => {
 
 ### Logging
 
-Logs for this application can be found in your [GAE log page](https://console.cloud.google.com/logs/viewer)
-Examples for querying JSON based logs can be found [here](https://cloud.google.com/logging/docs/view/advanced-queries)
+Logs for this application can be found in your [GAE log page](https://console.cloud.google.com/logs/viewer).  There aren't many options for logging to Google Cloud that are still actively maintained other than the `@google-cloud/logging` package, so this project takes advantage of that.  It follows the same interace as `console` so it won't be hard to swap to.
 
 ### Deploying
 1. `gcloud app deploy`
