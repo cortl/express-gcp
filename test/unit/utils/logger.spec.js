@@ -98,7 +98,6 @@ describe('Logger', () => {
 
         describe('timing', () => {
             let label,
-                time,
                 message;
 
             beforeEach(() => {
@@ -106,7 +105,7 @@ describe('Logger', () => {
                 label = chance.word();
                 logger.time(label);
 
-                const time = chance.natural({min: 100, max: 10000})
+                const time = chance.natural({min: 100, max: 10000});
                 clock.tick(time);
 
                 logger.timeEnd(label, metadata);
