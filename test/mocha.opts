@@ -1,4 +1,0 @@
---require @babel/register
---require chai
---require test/setup
---recursive

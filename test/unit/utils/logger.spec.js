@@ -102,21 +102,20 @@ describe('Logger', () => {
                 message;
 
             beforeEach(() => {
-                const clock = sinon.useFakeTimers();
-                const d1 = clock.Date();
+                const clock = sinon.useFakeTimers(new Date().getTime());
                 label = chance.word();
                 logger.time(label);
-                clock.tick(chance.natural({min: 100, max: 10000}));
-                logger.timeEnd(label, metadata);
-                const d2 = clock.Date();
 
-                time = d2 - d1;
+                const time = chance.natural({min: 100, max: 10000})
+                clock.tick(time);
+
+                logger.timeEnd(label, metadata);
 
                 message = `${label}: ${time}ms`;
             });
 
             it('should write an info entry', () => {
-                expect(log.entry).to.have.been.calledWith({
+                expect(log.entry).to.have.been.calledWithExactly({
                     ...defaultMetadata,
                     severity: 'NOTICE'
                 }, {...metadata, message});
