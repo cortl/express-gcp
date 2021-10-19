@@ -13,7 +13,7 @@ workflows:
 jobs:
   build:
     docker:
-      - image: circleci/node:dubnium
+      - image: circleci/node:lts
     parallelism: 1
     working_directory: /tmp/workspace
     steps:
