@@ -1,8 +1,0 @@
-{
-    "recursive": true,
-    "require": [
-        "@babel/register",
-        "chai",
-        "test/setup"
-    ]
-}

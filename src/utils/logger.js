@@ -1,13 +1,22 @@
-import {Logging} from '@google-cloud/logging';
+import { Logging } from '@google-cloud/logging';
 import config from 'config';
-
-const logging = new Logging({projectId: config.get('PROJECT_ID')});
-const log = logging.log('log');
 
 const SEVERITY = {
     error: 'ERROR',
     info: 'NOTICE',
 };
+
+let logging;
+
+const getLog = () => {
+    if (!logging) {
+        logging = new Logging({ projectId: config.get('PROJECT_ID') });
+    }
+
+    const log = logging.log('log');
+
+    return log;
+}
 
 const getMetadata = (severity) => ({
     resource: {
@@ -21,19 +30,20 @@ const getMetadata = (severity) => ({
 });
 
 const logWithSeverity = (severity, jsonPayload) => {
+    const log = getLog();
     const entry = log.entry(getMetadata(severity), jsonPayload);
 
     log.write(entry);
 };
 
 const error = (message, metadata) => {
-    logWithSeverity(SEVERITY.error, {...metadata, message});
+    logWithSeverity(SEVERITY.error, { ...metadata, message });
     // eslint-disable-next-line no-console
     console.error(message);
 };
 
 const info = (message, metadata) => {
-    logWithSeverity(SEVERITY.info, {...metadata, message});
+    logWithSeverity(SEVERITY.info, { ...metadata, message });
     // eslint-disable-next-line no-console
     console.log(message);
 };
@@ -59,9 +69,11 @@ const timeEnd = (label, metadata) => {
     }
 };
 
-export default {
+const logger = {
     error,
     info,
     time,
     timeEnd,
-};
+}
+
+export default logger;

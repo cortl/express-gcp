@@ -1,18 +1,14 @@
-import {expect} from 'chai';
-import * as Sinon from 'sinon';
 import Chance from 'chance';
-import proxyquire from 'proxyquire';
 import config from 'config';
+import { Logging, loggingStub, logStub } from '@google-cloud/logging'
 
-const sandbox = Sinon.createSandbox();
+import logger from '../../../src/utils/logger';
+
 const chance = new Chance();
 
-describe('Logger', () => {
-    let logger,
-        logging,
-        log,
-        GoogleLogging;
+jest.useFakeTimers();
 
+describe('Logger', () => {
     const defaultMetadata = {
         resource: {
             labels: {
@@ -23,32 +19,7 @@ describe('Logger', () => {
         },
     };
 
-    beforeEach(() => {
-        log = {
-            entry: sandbox.stub(),
-            write: sandbox.stub(),
-        };
-        logging = {
-            log: sandbox.stub().returns(log),
-        };
-        GoogleLogging = sandbox.stub().returns(logging);
-
-        logger = proxyquire('../../../src/utils/logger', {
-            '@google-cloud/logging': {
-                Logging: GoogleLogging,
-            },
-        }).default;
-    });
-
-    afterEach(() => sandbox.restore());
-
-    it('should create a Google Logging instance with project id', () => {
-        expect(GoogleLogging).to.have.been.calledOnceWithExactly({projectId: config.get('PROJECT_ID')});
-    });
-
-    it('should log to the log', () => {
-        expect(logging.log).to.have.been.calledOnceWithExactly('log');
-    });
+    afterEach(jest.clearAllMocks);
 
     describe('logging', () => {
         let message,
@@ -57,10 +28,10 @@ describe('Logger', () => {
 
         beforeEach(() => {
             message = chance.sentence();
-            metadata = {[chance.word()]: chance.string()};
+            metadata = { [chance.word()]: chance.string() };
             entry = chance.sentence();
 
-            log.entry.returns(entry);
+            logStub.entry.mockReturnValue(entry);
         });
 
         describe('info', () => {
@@ -68,15 +39,23 @@ describe('Logger', () => {
                 logger.info(message, metadata);
             });
 
+            it('should create a Google Logging instance with project id', () => {
+                expect(Logging).toHaveBeenCalledWith({ projectId: config.get('PROJECT_ID') });
+            });
+
+            it('should log to the log', () => {
+                expect(loggingStub.log).toHaveBeenCalledWith('log');
+            });
+
             it('should write an info entry', () => {
-                expect(log.entry).to.have.been.calledWith({
+                expect(logStub.entry).toHaveBeenCalledWith({
                     ...defaultMetadata,
                     severity: 'NOTICE',
-                }, {...metadata, message});
+                }, { ...metadata, message });
             });
 
             it('should write the log', () => {
-                expect(log.write).to.have.been.calledWithExactly(entry);
+                expect(logStub.write).toHaveBeenCalledWith(entry);
             });
         });
 
@@ -86,14 +65,14 @@ describe('Logger', () => {
             });
 
             it('should write an error entry', () => {
-                expect(log.entry).to.have.been.calledWith({
+                expect(logStub.entry).toHaveBeenCalledWith({
                     ...defaultMetadata,
                     severity: 'ERROR',
-                }, {...metadata, message});
+                }, { ...metadata, message });
             });
 
             it('should write the log', () => {
-                expect(log.write).to.have.been.calledWithExactly(entry);
+                expect(logStub.write).toHaveBeenCalledWith(entry);
             });
         });
 
@@ -101,14 +80,12 @@ describe('Logger', () => {
             let label;
 
             beforeEach(() => {
-                const clock = Sinon.useFakeTimers(Date.now());
-
                 label = chance.word();
                 logger.time(label);
 
-                const time = chance.natural({max: 10_000, min: 100});
+                const time = chance.natural({ max: 10_000, min: 100 });
 
-                clock.tick(time);
+                jest.advanceTimersByTime(time);
 
                 logger.timeEnd(label, metadata);
 
@@ -116,19 +93,27 @@ describe('Logger', () => {
             });
 
             it('should write an info entry', () => {
-                expect(log.entry).to.have.been.calledWithExactly({
+                expect(logStub.entry).toHaveBeenCalledWith({
                     ...defaultMetadata,
                     severity: 'NOTICE',
-                }, {...metadata, message});
+                }, { ...metadata, message });
             });
 
             it('should write the log', () => {
-                expect(log.write).to.have.been.calledWithExactly(entry);
+                expect(logStub.write).toHaveBeenCalledWith(entry);
             });
 
             describe('after timing has already ended', () => {
                 it('should not allow timeEnd to be called again', () => {
-                    expect(() => logger.timeEnd(label)).to.throw(Error, `time start does not exist for ${label}`);
+                    let actualError;
+
+                    try {
+                        logger.timeEnd(label);
+                    } catch (error) {
+                        actualError = error;
+                    } finally {
+                        expect(actualError).toStrictEqual(new Error(`time start does not exist for ${label}`))
+                    }
                 });
             });
         });

@@ -4,5 +4,5 @@
         "es6": true,
         "mocha": true
     },
-    "extends": "@cortl/eslint-config",
+    "extends": "@cortl/eslint-config"
 }

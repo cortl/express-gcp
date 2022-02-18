@@ -1,10 +1,6 @@
-import { expect } from 'chai';
-import sinon from 'sinon';
 import express from 'express';
 
 import indexRouter from '../../../src/routes';
-
-const sandbox = sinon.createSandbox();
 
 describe('Index Router', () => {
     let expressRouter,
@@ -12,34 +8,37 @@ describe('Index Router', () => {
 
     beforeEach(() => {
         expressRouter = {
-            get: sandbox.stub(),
-            post: sandbox.stub(),
+            get: jest.fn(),
+            post: jest.fn(),
         };
-        sandbox.stub(express, 'Router').returns(expressRouter);
+        
+        express.Router.mockReturnValue(expressRouter)
 
         res = {};
-        res.send = sandbox.stub().returns(res);
+        res.send = jest.fn().mockReturnValue(res);
 
         indexRouter();
     });
 
-    afterEach(() => sandbox.restore());
+    afterEach(jest.clearAllMocks);
 
     it('should set up a router', () => {
-        expect(expressRouter.get).to.have.been.calledWithExactly('/', sinon.match.func);
+        expect(expressRouter.get).toHaveBeenCalledTimes(1);
+        expect(expressRouter.get).toHaveBeenCalledWith('/', expect.any(Function));
     });
 
     describe('GET /', () => {
-        let getPage;
+        let get;
 
         beforeEach(() => {
-            getPage = expressRouter.get.firstCall.args[1];
+            get = expressRouter.get.mock.calls[0][1];
 
-            getPage('', res);
+            get('', res);
         });
 
         it('should return hello world', () => {
-            expect(res.send).to.have.been.calledWith('Hello World!');
+            expect(res.send).toHaveBeenCalledTimes(1);
+            expect(res.send).toHaveBeenCalledWith('Hello World!');
         });
     });
 });
