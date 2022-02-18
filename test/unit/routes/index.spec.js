@@ -14,8 +14,9 @@ describe('Index Router', () => {
 
         express.Router.mockReturnValue(expressRouter);
 
-        res = {};
-        jest.spyOn(res, 'send').mockImplementation().mockReturnValue(res);
+        res = {
+            send: jest.fn().mockReturnThis(),
+        };
 
         indexRouter();
     });
