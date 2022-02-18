@@ -16,7 +16,7 @@ const getLog = () => {
     const log = logging.log('log');
 
     return log;
-}
+};
 
 const getMetadata = (severity) => ({
     resource: {
@@ -74,6 +74,6 @@ const logger = {
     info,
     time,
     timeEnd,
-}
+};
 
 export default logger;

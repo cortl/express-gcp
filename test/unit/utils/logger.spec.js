@@ -1,6 +1,6 @@
 import Chance from 'chance';
 import config from 'config';
-import { Logging, loggingStub, logStub } from '@google-cloud/logging'
+import { Logging, loggingStub, logStub } from '@google-cloud/logging';
 
 import logger from '../../../src/utils/logger';
 
@@ -112,7 +112,7 @@ describe('Logger', () => {
                     } catch (error) {
                         actualError = error;
                     } finally {
-                        expect(actualError).toStrictEqual(new Error(`time start does not exist for ${label}`))
+                        expect(actualError).toStrictEqual(new Error(`time start does not exist for ${label}`));
                     }
                 });
             });

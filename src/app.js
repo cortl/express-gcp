@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import config from 'config';
 
 import indexRouter from './routes';
-import logger from './utils/logger.js';
+import logger from './utils/logger';
 
 const app = express();
 

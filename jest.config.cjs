@@ -1,6 +1,5 @@
 const config = {
-    verbose: true,
-    setupFiles: ['<rootDir>/test/setup/index.js']
+    verbose: true
 }
 
 module.exports = config;

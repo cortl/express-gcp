@@ -9,7 +9,7 @@ const loggingStub = {
 };
 const LoggingStub = jest.fn().mockReturnValue(loggingStub);
 
-logging.Logging = LoggingStub
+logging.Logging = LoggingStub;
 
-export { LoggingStub as Logging, logStub, loggingStub }
+export { LoggingStub as Logging, logStub, loggingStub };
 export default logging;
