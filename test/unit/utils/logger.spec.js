@@ -13,7 +13,7 @@ describe('Logger', () => {
         resource: {
             labels: {
                 'module_id': 'default',
-                'project_id': config.get('PROJECT_ID'),
+                'project_id': config.get('projectId'),
             },
             type: 'gae_app',
         },
@@ -40,7 +40,7 @@ describe('Logger', () => {
             });
 
             test('should create a Google Logging instance with project id', () => {
-                expect(Logging).toHaveBeenCalledWith({ projectId: config.get('PROJECT_ID') });
+                expect(Logging).toHaveBeenCalledWith({ projectId: config.get('projectId') });
             });
 
             test('should log to the log', () => {

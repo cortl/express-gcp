@@ -11,7 +11,7 @@ Boilerplate application for Node/Express on Google Cloud App Engine
 ### Prerequisites
 Google Cloud Platform project setup and the [Google Quickstart "Before You Begin"](https://cloud.google.com/appengine/docs/standard/nodejs/quickstart#before-you-begin) steps followed.
 
-You'll also need to change the `PROJECT_ID` in `/config/default.js` to your Google project id.
+You'll also need to change the `projectId` in `/config/default.js` to your Google project id.
 
 ### Installing
 1. `npm install`

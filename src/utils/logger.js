@@ -10,7 +10,7 @@ let logging;
 
 const getLog = () => {
     if (!logging) {
-        logging = new Logging({ projectId: config.get('PROJECT_ID') });
+        logging = new Logging({ projectId: config.get('projectId') });
     }
 
     const log = logging.log('log');
@@ -22,7 +22,7 @@ const getMetadata = (severity) => ({
     resource: {
         labels: {
             'module_id': 'default',
-            'project_id': config.get('PROJECT_ID'),
+            'project_id': config.get('projectId'),
         },
         type: 'gae_app',
     },
