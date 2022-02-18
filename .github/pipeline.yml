@@ -1,0 +1,35 @@
+name: Pipeline
+on:
+  push:
+    branches:
+      - main
+jobs:
+  verify-code:
+    name: Verify & Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          cache: "npm"
+          node-version: 16
+      - name: npm install
+        run: |
+          npm i
+      - name: Verify code
+        run: |
+          npm run verify
+  deploy:
+    name: Deploy
+    needs: verify-code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: "Google Auth"
+        uses: "google-github-actions/auth@v0"
+        with:
+          credentials_json: "${{ secrets.GCP_SA_KEY }}"
+      - name: "Deploy to GAE"
+        uses: "google-github-actions/deploy-appengine@v0"
