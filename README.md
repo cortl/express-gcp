@@ -32,10 +32,10 @@ for this sample project you could use
 which would run all the tests under
 ```
 describe('Index Router', () => {
-    it('should run this test', () => {});
+    test('should run this test', () => {});
 
     describe('GET /', () => {
-        it('should also run this test', () => {});
+        test('should also run this test', () => {});
     });
 });
 ```

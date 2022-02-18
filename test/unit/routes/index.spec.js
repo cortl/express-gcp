@@ -22,7 +22,7 @@ describe('Index Router', () => {
 
     afterEach(jest.clearAllMocks);
 
-    it('should set up a router', () => {
+    test('should set up a router', () => {
         expect(expressRouter.get).toHaveBeenCalledTimes(1);
         expect(expressRouter.get).toHaveBeenCalledWith('/', expect.any(Function));
     });
@@ -36,7 +36,7 @@ describe('Index Router', () => {
             get('', res);
         });
 
-        it('should return hello world', () => {
+        test('should return hello world', () => {
             expect(res.send).toHaveBeenCalledTimes(1);
             expect(res.send).toHaveBeenCalledWith('Hello World!');
         });

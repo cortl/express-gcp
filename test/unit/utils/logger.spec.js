@@ -39,22 +39,22 @@ describe('Logger', () => {
                 logger.info(message, metadata);
             });
 
-            it('should create a Google Logging instance with project id', () => {
+            test('should create a Google Logging instance with project id', () => {
                 expect(Logging).toHaveBeenCalledWith({ projectId: config.get('PROJECT_ID') });
             });
 
-            it('should log to the log', () => {
+            test('should log to the log', () => {
                 expect(loggingStub.log).toHaveBeenCalledWith('log');
             });
 
-            it('should write an info entry', () => {
+            test('should write an info entry', () => {
                 expect(logStub.entry).toHaveBeenCalledWith({
                     ...defaultMetadata,
                     severity: 'NOTICE',
                 }, { ...metadata, message });
             });
 
-            it('should write the log', () => {
+            test('should write the log', () => {
                 expect(logStub.write).toHaveBeenCalledWith(entry);
             });
         });
@@ -64,14 +64,14 @@ describe('Logger', () => {
                 logger.error(message, metadata);
             });
 
-            it('should write an error entry', () => {
+            test('should write an error entry', () => {
                 expect(logStub.entry).toHaveBeenCalledWith({
                     ...defaultMetadata,
                     severity: 'ERROR',
                 }, { ...metadata, message });
             });
 
-            it('should write the log', () => {
+            test('should write the log', () => {
                 expect(logStub.write).toHaveBeenCalledWith(entry);
             });
         });
@@ -92,19 +92,19 @@ describe('Logger', () => {
                 message = `${label}: ${time}ms`;
             });
 
-            it('should write an info entry', () => {
+            test('should write an info entry', () => {
                 expect(logStub.entry).toHaveBeenCalledWith({
                     ...defaultMetadata,
                     severity: 'NOTICE',
                 }, { ...metadata, message });
             });
 
-            it('should write the log', () => {
+            test('should write the log', () => {
                 expect(logStub.write).toHaveBeenCalledWith(entry);
             });
 
             describe('after timing has already ended', () => {
-                it('should not allow timeEnd to be called again', () => {
+                test('should not allow timeEnd to be called again', () => {
                     let actualError;
 
                     try {
