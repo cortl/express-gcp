@@ -4,49 +4,55 @@ import config from 'config';
 const logging = new Logging({projectId: config.get('PROJECT_ID')});
 const log = logging.log('log');
 
-const severity = {
+const SEVERITY = {
+    error: 'ERROR',
     info: 'NOTICE',
-    error: 'ERROR'
 };
 
-const getMetadata = severity => ({
+const getMetadata = (severity) => ({
     resource: {
-        type: 'gae_app',
         labels: {
+            'module_id': 'default',
             'project_id': config.get('PROJECT_ID'),
-            'module_id': 'default'
-        }
+        },
+        type: 'gae_app',
     },
-    severity
+    severity,
 });
 
 const logWithSeverity = (severity, jsonPayload) => {
     const entry = log.entry(getMetadata(severity), jsonPayload);
+
     log.write(entry);
 };
 
 const error = (message, metadata) => {
-    logWithSeverity(severity.error, {...metadata, message});
+    logWithSeverity(SEVERITY.error, {...metadata, message});
+    // eslint-disable-next-line no-console
     console.error(message);
 };
 
 const info = (message, metadata) => {
-    logWithSeverity(severity.info, {...metadata, message});
+    logWithSeverity(SEVERITY.info, {...metadata, message});
+    // eslint-disable-next-line no-console
     console.log(message);
 };
 
 const timeData = {};
 
-const time = label => {
+const time = (label) => {
     timeData[label] = new Date();
 };
 
 const timeEnd = (label, metadata) => {
     const startTime = timeData[label];
+
     if (startTime) {
-        const diff = new Date() - timeData[label];
+        const diff = Date.now() - timeData[label];
+
         delete timeData[label];
         const message = `${label}: ${diff}ms`;
+
         info(message, metadata);
     } else {
         throw new Error(`time start does not exist for ${label}`);
@@ -57,5 +63,5 @@ export default {
     error,
     info,
     time,
-    timeEnd
+    timeEnd,
 };

@@ -1,10 +1,10 @@
 import {expect} from 'chai';
-import sinon from 'sinon';
+import * as Sinon from 'sinon';
 import Chance from 'chance';
 import proxyquire from 'proxyquire';
 import config from 'config';
 
-const sandbox = sinon.createSandbox();
+const sandbox = Sinon.createSandbox();
 const chance = new Chance();
 
 describe('Logger', () => {
@@ -15,27 +15,28 @@ describe('Logger', () => {
 
     const defaultMetadata = {
         resource: {
-            type: 'gae_app',
             labels: {
+                'module_id': 'default',
                 'project_id': config.get('PROJECT_ID'),
-                'module_id': 'default'
-            }
-        }
+            },
+            type: 'gae_app',
+        },
     };
+
     beforeEach(() => {
         log = {
             entry: sandbox.stub(),
-            write: sandbox.stub()
+            write: sandbox.stub(),
         };
         logging = {
-            log: sandbox.stub().returns(log)
+            log: sandbox.stub().returns(log),
         };
         GoogleLogging = sandbox.stub().returns(logging);
 
         logger = proxyquire('../../../src/utils/logger', {
             '@google-cloud/logging': {
-                Logging: GoogleLogging
-            }
+                Logging: GoogleLogging,
+            },
         }).default;
     });
 
@@ -70,7 +71,7 @@ describe('Logger', () => {
             it('should write an info entry', () => {
                 expect(log.entry).to.have.been.calledWith({
                     ...defaultMetadata,
-                    severity: 'NOTICE'
+                    severity: 'NOTICE',
                 }, {...metadata, message});
             });
 
@@ -87,7 +88,7 @@ describe('Logger', () => {
             it('should write an error entry', () => {
                 expect(log.entry).to.have.been.calledWith({
                     ...defaultMetadata,
-                    severity: 'ERROR'
+                    severity: 'ERROR',
                 }, {...metadata, message});
             });
 
@@ -97,15 +98,16 @@ describe('Logger', () => {
         });
 
         describe('timing', () => {
-            let label,
-                message;
+            let label;
 
             beforeEach(() => {
-                const clock = sinon.useFakeTimers(new Date().getTime());
+                const clock = Sinon.useFakeTimers(Date.now());
+
                 label = chance.word();
                 logger.time(label);
 
-                const time = chance.natural({min: 100, max: 10000});
+                const time = chance.natural({max: 10_000, min: 100});
+
                 clock.tick(time);
 
                 logger.timeEnd(label, metadata);
@@ -116,7 +118,7 @@ describe('Logger', () => {
             it('should write an info entry', () => {
                 expect(log.entry).to.have.been.calledWithExactly({
                     ...defaultMetadata,
-                    severity: 'NOTICE'
+                    severity: 'NOTICE',
                 }, {...metadata, message});
             });
 

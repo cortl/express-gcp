@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import express from 'express';
-import indexRouter from '../../../src/routes/index';
+
+import indexRouter from '../../../src/routes';
 
 const sandbox = sinon.createSandbox();
 
@@ -12,7 +13,7 @@ describe('Index Router', () => {
     beforeEach(() => {
         expressRouter = {
             get: sandbox.stub(),
-            post: sandbox.stub()
+            post: sandbox.stub(),
         };
         sandbox.stub(express, 'Router').returns(expressRouter);
 

@@ -1,13 +1,14 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import sinonChai from 'sinon-chai';
-import sinon from 'sinon';
-import logger from '../../src/utils/logger';
+import * as Sinon from 'sinon';
 
-sinon.stub(logger, 'info');
-sinon.stub(logger, 'error');
-sinon.stub(logger, 'time');
-sinon.stub(logger, 'timeEnd');
+import logger from '../../src/utils/logger.js';
+
+Sinon.stub(logger, 'info');
+Sinon.stub(logger, 'error');
+Sinon.stub(logger, 'time');
+Sinon.stub(logger, 'timeEnd');
 
 chai.use(chaiHttp);
 chai.use(sinonChai);

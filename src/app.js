@@ -1,9 +1,12 @@
+import process from 'node:process';
+
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import config from 'config';
 
-import indexRouter from './routes/index';
+import indexRouter from './routes';
+import logger from './utils/logger.js';
 
 const app = express();
 
@@ -14,6 +17,6 @@ app.use(cookieParser());
 
 app.use('/', indexRouter());
 
-console.info(`application started successfully on port: ${process.env.PORT || config.get('port')}`);
+logger.info(`application started successfully on port: ${process.env.PORT || config.get('port')}`);
 
 export default app;
