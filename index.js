@@ -2,6 +2,6 @@ import process from 'node:process';
 
 import config from 'config';
 
-const app = require('./src/app.js');
+import app from './src/app.js';
 
-app.default.listen(process.env.PORT || config.port);
+app.listen(process.env.PORT || config.port);

@@ -1,9 +1,9 @@
 {
     "name": "express-gcp",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "private": true,
     "scripts": {
-        "start": "node index.js",
+        "start": "node --experimental-specifier-resolution=node index.js",
         "dev": "nodemon --watch src --exec \"npm start\"",
         "test": "mocha",
         "verify": "npm run eslint && npm run test",
