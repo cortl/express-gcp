@@ -20,7 +20,8 @@ You'll also need to change the `PROJECT_ID` in `/config/default.js` to your Goog
 
 ### Usage & Developing
 1. `npm run dev`
-3. Develop! 🎉
+2. Develop! 🎉
+3. `npm run verify` to ensure your changes didn't break anything!
 
 ### Testing
 We prefer to use [Mocha] combined with [Sinon] and [Chance] to unit test our applications.  You can auto-run the tests using a tool called [Nodemon] which will auto-run the tests.  Some helpful commands to use when you want to run a specfic set of tests are
