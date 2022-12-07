@@ -22,7 +22,7 @@
         "babel-jest": "^27.5.1",
         "config": "3.3.6",
         "cookie-parser": "~1.4.6",
-        "express": "~4.17.2",
+        "express": "~4.17.3",
         "helmet": "^4.6.0"
     },
     "devDependencies": {
